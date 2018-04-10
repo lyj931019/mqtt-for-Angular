@@ -1,0 +1,125 @@
+<div style="position: relative;">
+
+
+  <div class="flex">
+    <div>
+      <h1>冷柜系统</h1>
+      <table>
+        <thead>
+        <tr>
+          <th>
+            <h4>名称</h4>
+          </th>
+          <th>
+            <h4>当前值</h4>
+          </th>
+          <th>
+            <h4 style="padding: 0 21px">
+              浮动范围
+            </h4>
+          </th>
+          <th>
+            <h4>操作</h4>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <h2 class="td-name">
+              温度( ℃)
+            </h2>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="mqtt.temp" class="input">
+          </td>
+          <td>
+            <h3>±{{mqtt.floatTemp}}</h3>
+          </td>
+          <td>
+            <button type="button" class="btn" (click)="uploadTemp()">保存</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h2 class="td-name">
+              湿度(%)
+            </h2>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="mqtt.humi" class="input">
+          </td>
+          <td>
+            <h3>±{{mqtt.floatHumi}}</h3>
+          </td>
+          <td>
+            <button type="button" class="btn" (click)="uploadHumi()">保存</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <h2>
+        灯：
+        <span  class="out" [class.open]="mqtt.lightIsOpen" (click)="changeLight()">
+      <span  class="in" [class.open]="mqtt.lightIsOpen"></span>
+    </span>
+        <span *ngIf="!mqtt.lightIsOpen">关</span>
+        <span *ngIf="mqtt.lightIsOpen">开</span>
+      </h2>
+
+      <h2>
+        门：
+        <span  class="out" [class.open]="mqtt.doorIsOpen" (click)="changeDoor()">
+      <span  class="in" [class.open]="mqtt.doorIsOpen"></span>
+    </span>
+        <span *ngIf="!mqtt.doorIsOpen">关</span>
+        <span *ngIf="mqtt.doorIsOpen">开</span>
+      </h2>
+    </div>
+    <div class="get">
+
+      <table>
+        <tr>
+          <th>设定的温度:</th>
+          <td>{{mqtt.target_t}} ℃</td>
+        </tr>
+        <tr>
+          <th>高温报警线:</th>
+          <td>{{mqtt.maxTemp}} ℃</td>
+        </tr>
+        <tr>
+          <th>低温报警线:</th>
+          <td>{{mqtt.minTemp}} ℃</td>
+        </tr>
+        <tr>
+          <th>设定的湿度:</th>
+          <td>{{mqtt.target_h}} %</td>
+        </tr>
+        <tr>
+          <th>湿度过高报警线:</th>
+          <td>{{mqtt.maxHumi}} %</td>
+        </tr>
+        <tr>
+          <th>湿度过底报警线:</th>
+          <td>{{mqtt.minHumi}} %</td>
+        </tr>
+        <tr>
+          <th>采集周期</th>
+          <td><input type="text" [(ngModel)]="mqtt.dataPushTimer" class="input">(ms)</td>
+        </tr>
+        <tr>
+          <th>上传周期</th>
+          <td><input type="text" [(ngModel)]="mqtt.timer" class="input">(ms)</td>
+        </tr>
+      </table>
+
+    </div>
+
+  </div>
+
+
+  name ： <input type="text" [(ngModel)]="name"><br>
+  id ： <input type="text" [(ngModel)]="kioskId"><br>
+  type : <input type="text" [(ngModel)]="type"><br>
+  <button (click)="handleClick()" class="btn">提交数据</button>
+</div>
