@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MqttService} from '../service/mqtt.service';
+import {MqttService} from '../../service/mqtt.service';
 
 // import {trigger, state, style, animate, transition, keyframes} from '@angular/animations';
 
@@ -24,23 +24,23 @@ export class IndexComponent implements OnInit {
   }
 
   changeDoor() {
-    this.mqtt.decideChangeCode();
+    // this.mqtt.decideChangeCode();
   }
 
   changeLight() {
-    this.mqtt.decideChangeCode(false);
+    // this.mqtt.decideChangeCode(false);
   }
 
   uploadTemp() {
-    this.mqtt.sendTempAlert();
+    // this.mqtt.sendTempAlert();
   }
 
   uploadHumi() {
-    this.mqtt.sendHumiAlert();
+    // this.mqtt.sendHumiAlert();
   }
 
   handleClick() {
-    this.mqtt.sendTest(this.name, this.kioskId, this.type);
+    // this.mqtt.sendTest(this.name, this.kioskId, this.type);
   }
 
 }
