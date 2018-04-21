@@ -171,3 +171,95 @@ import {DomSanitizer} from "@angular/platform-browser";
  <div [innerHtml]="TrustHtml"></div> 
 ```
 [innerHtml]可以直接渲染html标签，默认不渲染属性
+
+
+
+# Angular http:get/post  (HttpClient)
+## 官方文档使用此方法
+## app.module.ts 
+```
+import { NgModule }         from '@angular/core';
+import { BrowserModule }    from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';  // *
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    // import HttpClientModule after BrowserModule.
+    HttpClientModule,
+  ],
+  declarations: [
+    AppComponent,
+  ],
+  bootstrap: [ AppComponent ]
+})
+export class AppModule {}
+```
+此方法似乎不需要封装在**service**里，
+直接在要使用的地方**引用**: 
+```
+import { HttpClient } from '@angular/common/http'
+```
+声明：
+```
+constructor(private httpClient:HttpClient){}
+```
+## get 
+### 直接使用
+```
+this.httpClient.get(url).subscribe( (res)=>{
+	// 就收到数据之后的回调
+	// 可执行赋值操作等，保存接收的数据
+} )
+
+```
+这个例子太简单，所以它也可以在组件本身的代码中调用 Http.get()，而不用借助服务。
+不过，数据访问很少能一直这么简单。 你通常要对数据做后处理、添加错误处理器，还可能加一些重试逻辑，以便应对网络抽风的情况。
+该组件很快就会因为这些数据方式的细节而变得杂乱不堪。 组件变得难以理解、难以测试，并且这些数据访问逻辑无法被复用，也无法标准化。
+这就是为什么最佳实践中要求把数据展现逻辑从数据访问逻辑中拆分出去，也就是说把数据访问逻辑包装进一个单独的服务中， 并且在组件中把数据访问逻辑委托给这个服务。就算是这么简单的应用也要如此。
+
+### 简单的写进服务里（未加数据访问逻辑）
+**Service**
+```
+getData(url){
+  return this.httpClient.get(url);
+}
+
+```
+**Component**
+```
+this.xxService.getData(url).subscribe( (res)=>{
+	// 就收到数据之后的回调
+	// 可执行赋值操作等，保存接收的数据
+} )
+```
+### 数据访问逻辑（待更新）
+
+## Post
+
+### 直接使用 （未测试）
+```
+this.httpClient.post(url, data, httpOptions).subscribe( (res)=>{
+	// 就收到数据之后的回调
+	// 可执行赋值操作等，保存接收的数据
+}) // catchError未写
+
+```
+它还接受另外两个参数：
+
+1. data - 要 POST 的请求体数据。
+2. httpOptions - 这个例子中，该方法的选项指定了所需的请求头。
+
+**添加请求头:**
+```
+import { HttpHeaders } from '@angular/common/http';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+    'Authorization': 'my-auth-token'
+  })
+};
+
+```
+**<font style='color:#de3d3e;'> 注意：</font> *data*格式未知** 
