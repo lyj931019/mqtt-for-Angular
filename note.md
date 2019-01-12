@@ -265,8 +265,9 @@ const httpOptions = {
 **<font style='color:#de3d3e;'> 注意：</font> *data*格式未知** 
 
 
-#配置路由，添加#号
+# 配置路由，添加#号
 ```
+//...
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 @NgModule({
   declarations: [
@@ -279,7 +280,7 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
     RouterModule.forRoot(routes),
   ],
   providers: [
-    {provide: LocationStrategy, useClass: HashLocationStrategy} // *
+    {provide: LocationStrategy, useClass: HashLocationStrategy} // ***
   ],
   bootstrap: [AppComponent]
 })
