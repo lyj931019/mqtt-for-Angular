@@ -264,6 +264,34 @@ const httpOptions = {
 ```
 **<font style='color:#de3d3e;'> 注意：</font> *data*格式未知** 
 
+# 设置查询参数
+## 创建 HttpParams 对象
+```
+import {HttpParams} from "@angular/common/http";
+ 
+const params = new HttpParams()
+    .set('orderBy', '"$key"')
+    .set('limitToFirst', "1");
+ 
+this.courses$ = this.http
+    .get("/courses.json", {params})
+    .do(console.log)
+    .map(data => _.values(data))
+```
+
+需要注意的是，我们通过链式语法调用 set() 方法，构建 HttpParams 对象。这是因为 HttpParams 对象是不可变的，通过 set()方法可以防止该对象被修改。
+
+每当调用 set() 方法，将会返回包含新值的 HttpParams 对象，因此如果使用下面的方式，将不能正确的设置参数。
+```
+const params = new HttpParams();
+ 
+params.set('orderBy', '"$key"')
+params.set('limitToFirst', "1");
+// params.toString() == ''
+```
+
+
+
 
 # 配置路由，添加#号
 ```
