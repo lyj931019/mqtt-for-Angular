@@ -250,18 +250,28 @@ this.httpClient.post(url, data, httpOptions).subscribe( (res)=>{
 1. data - 要 POST 的请求体数据。
 2. httpOptions - 这个例子中，该方法的选项指定了所需的请求头。
 
+**data**
+上传的data格式与 httpOpitons有关,传值时只需传普通的对象格式即可，序列化除外
+```
+  let data = {
+    xxx : XXX
+    ....
+  }
+```
+
 **添加请求头:**
 ```
 import { HttpHeaders } from '@angular/common/http';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
+    'Content-Type':  'application/json', // 'application/x-www-form-urlencoded;charset=UTF-8'
     'Authorization': 'my-auth-token'
   })
 };
 
 ```
+由'application/'后的决定上传的data格式，json即为json格式，x-www-form-urlencoded即为form data ...
 **<font style='color:#de3d3e;'> 注意：</font> *data*格式未知** 
 
 # 设置查询参数
